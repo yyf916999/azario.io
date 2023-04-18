@@ -4,6 +4,7 @@ import ListItem from "@mui/joy/ListItem";
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import Classes from "./Classes";
+import { Button } from "@mui/joy";
 interface Props {
   items: string[];
   heading: string;
@@ -22,15 +23,15 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
 
   return (
     <>
-      <Box display="flex" justifyContent="center" alignItems="center">
-        <Grid container spacing={2} sx={{ ml: 45, mt: 3 }} alignItems="left">
+      <Box display="flex">
+        <Grid container spacing={1} sx={{ ml: 45, mt: 3 }}>
           <List orientation="horizontal" sx={{ typography: "body1" }}>
             <Grid item xs={2}>
               <ListItem>{heading}</ListItem>
             </Grid>
 
             {items.map((item, index) => (
-              <Grid item xs={1}>
+              <Grid item xs={8 / 5} key={index}>
                 <ListItem
                   color={selectedIndex === index ? "success" : "neutral"}
                   variant={selectedIndex === index ? "soft" : "plain"}
@@ -39,10 +40,10 @@ function ListGroup({ items, heading, onSelectItem }: Props) {
                     setSelectedIndex(index);
                     onSelectItem(index.toString());
                     onSelectItem(item);
-                    setShowClasses(true);
-                    {
-                      showClasses && <Classes item={index} />;
-                    }
+
+                    // {
+                    //   showClasses && <Button />;
+                    // }
                   }}
                 >
                   {item}

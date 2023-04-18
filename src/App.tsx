@@ -4,9 +4,11 @@ import SliderBars from "./components/SliderBars";
 import Input from "./components/Input";
 import Buttons from "./components/Buttons";
 import Header from "./components/Header";
+import Classes from "./components/Classes";
 function App() {
   const handleSelectItem = (item: string) => {
     console.log(item);
+    // console.log(typeof item);
   };
   return (
     <>
@@ -29,7 +31,7 @@ function App() {
             heading="Grade"
             onSelectItem={handleSelectItem}
           />
-          <ListGroup
+          <Classes
             items={[
               "Mathematics",
               "Language Arts",

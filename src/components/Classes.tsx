@@ -2,12 +2,19 @@ import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
+import { useState } from "react";
 interface Props {
-  item: number;
+  heading: string;
+  onSelectItem: (item: string) => void;
+  items: string[];
 }
 
-function Classes({ item }: Props) {
-  let classes;
+function Classes({ heading, onSelectItem, items }: Props) {
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedSIndex, setSelectedSIndex] = useState(-1);
+  const [classesList, setClassesList] = useState([]);
+  const [showClasses, setShowClasses] = useState(false);
+  let classes = [""];
   const math = [
     "Integrated Math 1",
     "Integrated Math 2",
@@ -70,30 +77,66 @@ function Classes({ item }: Props) {
     "AP Microeconomics",
     "Others",
   ];
-  switch (item) {
-    case 0:
-      classes = math;
-      break;
-    case 1:
-      classes = la;
-      break;
-    case 2:
-      classes = science;
-      break;
-    case 3:
-      classes = ah;
-      break;
-    case 4:
-      classes = econ;
-      break;
-    default:
-      classes = [];
-  }
+  //   classesDic = { 0: math };
+  classes = math;
+  let switchCases = -1;
   return (
     <>
-      {" "}
-      <Box display="flex" justifyContent="center" alignItems="center"></Box>
-      <List orientation="horizontal" sx={{ typography: "body1" }}></List>
+      <Box display="flex">
+        <Grid container spacing={1} sx={{ ml: 45, mt: 3 }}>
+          <List orientation="horizontal" sx={{ typography: "body1" }}>
+            <Grid item xs={2}>
+              <ListItem key={"header"}>{heading}</ListItem>
+            </Grid>
+            {items.map((item, index) => (
+              <Grid item xs={8 / 5} key={index}>
+                <ListItem
+                  color={selectedIndex === index ? "success" : "neutral"}
+                  variant={selectedIndex === index ? "soft" : "plain"}
+                  key={item}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    onSelectItem(index.toString());
+                    onSelectItem(item);
+                    setShowClasses(true);
+                    onSelectItem(classes[0]);
+                  }}
+                >
+                  {item}
+                </ListItem>
+              </Grid>
+            ))}
+          </List>
+        </Grid>
+      </Box>
+      <div></div>
+      {showClasses ? (
+        <Box display="flex">
+          <Grid container spacing={1} sx={{ ml: 45, mt: 3 }}>
+            <List orientation="horizontal" sx={{ typography: "body1" }}>
+              <Grid item xs={2}>
+                <ListItem key={"header"}>{"Specific Subject"}</ListItem>
+              </Grid>
+              {classes.map((item_1, index_1) => (
+                <Grid item xs={8 / 5} key={index_1}>
+                  <ListItem
+                    color={selectedSIndex === index_1 ? "success" : "neutral"}
+                    variant={selectedSIndex === index_1 ? "soft" : "plain"}
+                    key={item_1}
+                    onClick={() => {
+                      setSelectedSIndex(index_1);
+                      onSelectItem(index_1.toString());
+                      onSelectItem(item_1);
+                    }}
+                  >
+                    {item_1}
+                  </ListItem>
+                </Grid>
+              ))}
+            </List>
+          </Grid>
+        </Box>
+      ) : null}
     </>
   );
 }
