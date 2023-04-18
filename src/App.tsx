@@ -1,34 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-
+import ListGroup from "./components/ListGroup";
+// import Button from "./components/Button";
+import SliderBars from "./components/SliderBars";
+import Input from "./components/Input";
+import Buttons from "./components/Buttons";
+import Header from "./components/Header";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const handleSelectItem = (item: string) => {
+    console.log(item);
+  };
   return (
-    <div className="App">
+    <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Header></Header>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div>
+        <Input></Input>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+      <div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <ListGroup
+            items={[
+              "9th Grade",
+              "10th Grade",
+              "11th Grade",
+              "12th Grade",
+              "Others",
+            ]}
+            heading="Grade"
+            onSelectItem={handleSelectItem}
+          />
+          <ListGroup
+            items={[
+              "Mathematics",
+              "Language Arts",
+              "Science",
+              "Arts & Humanities",
+              "Economics",
+              "Others",
+            ]}
+            heading="Subject"
+            onSelectItem={handleSelectItem}
+          />
+          <ListGroup
+            items={["True/False", "Multiple Choice"]}
+            heading="Type of Question"
+            onSelectItem={handleSelectItem}
+          />
+        </div>
+        <div>
+          <SliderBars max={20} heading={"Number of Questions"} />
+          <br></br>
+          <SliderBars max={10} heading={"Difficulty"} />
+        </div>
+
+        <div>
+          <Buttons></Buttons>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default App
+export default App;
